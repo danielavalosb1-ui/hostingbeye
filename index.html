@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas para Belencita</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            position: relative;
+        }
+
+        /* Estrellas de fondo */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Título principal */
+        .main-title {
+            position: relative;
+            text-align: center;
+            padding: 2rem;
+            z-index: 10;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: #ffd700;
+            text-shadow: 
+                0 0 10px #ffd700,
+                0 0 20px #ffd700,
+                0 0 30px #ffd700;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { 
+                text-shadow: 
+                    0 0 10px #ffd700,
+                    0 0 20px #ffd700,
+                    0 0 30px #ffd700;
+            }
+            to { 
+                text-shadow: 
+                    0 0 5px #ffd700,
+                    0 0 10px #ffd700,
+                    0 0 15px #ffd700;
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: #ffecb3;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Container de flores */
+        .flowers-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Flores flotantes */
+        .flower {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .flower::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffeb3b, #ffc107);
+            border-radius: 50%;
+            top: 0;
+            left: 10px;
+            box-shadow: 
+                0 0 10px #ffeb3b,
+                0 0 20px rgba(255, 235, 59, 0.5);
+        }
+
+        .flower::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #ff9800;
+            border-radius: 50%;
+            top: 2.5px;
+            left: 12.5px;
+            box-shadow: 0 0 5px #ff9800;
+        }
+
+        /* Pétalos */
+        .petal {
+            position: absolute;
+            width: 12px;
+            height: 25px;
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+            box-shadow: 0 0 8px rgba(255, 235, 59, 0.6);
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-15px); }
+        .petal:nth-child(2) { transform: rotate(45deg) translateY(-15px); }
+        .petal:nth-child(3) { transform: rotate(90deg) translateY(-15px); }
+        .petal:nth-child(4) { transform: rotate(135deg) translateY(-15px); }
+        .petal:nth-child(5) { transform: rotate(180deg) translateY(-15px); }
+        .petal:nth-child(6) { transform: rotate(225deg) translateY(-15px); }
+        .petal:nth-child(7) { transform: rotate(270deg) translateY(-15px); }
+        .petal:nth-child(8) { transform: rotate(315deg) translateY(-15px); }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Animaciones específicas para diferentes flores */
+        .flower:nth-child(1) { 
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 8s;
+        }
+
+        .flower:nth-child(2) { 
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+            animation-duration: 7s;
+        }
+
+        .flower:nth-child(3) { 
+            top: 60%;
+            left: 5%;
+            animation-delay: 2s;
+            animation-duration: 9s;
+        }
+
+        .flower:nth-child(4) { 
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 3s;
+            animation-duration: 6s;
+        }
+
+        .flower:nth-child(5) { 
+            top: 40%;
+            left: 50%;
+            animation-delay: 4s;
+            animation-duration: 8s;
+        }
+
+        .flower:nth-child(6) { 
+            top: 80%;
+            left: 70%;
+            animation-delay: 5s;
+            animation-duration: 7s;
+        }
+
+        /* Mensaje romántico expandido */
+        .love-message {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            color: #ffecb3;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            text-align: center;
+            box-shadow: 
+                0 0 30px rgba(255, 215, 0, 0.2),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            opacity: 0;
+            animation: messageAppear 4s ease-in 3s forwards;
+            z-index: 2;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .love-message::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .love-message::-webkit-scrollbar-track {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .love-message::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.4);
+            border-radius: 4px;
+        }
+
+        .love-message p {
+            margin-bottom: 1.2rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+
+        .love-message strong {
+            color: #ffd700;
+            text-shadow: 0 0 10px #ffd700;
+        }
+
+        .love-message .signature {
+            margin-top: 2rem;
+            font-style: italic;
+            color: #ffd700;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+
+        @keyframes messageAppear {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-50%) scale(0.8);
+            }
+            100% { 
+                opacity: 0.95; 
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        /* Botón para mostrar/ocultar mensaje */
+        .toggle-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 20;
+            backdrop-filter: blur(5px);
+        }
+
+        .toggle-message:hover {
+            background: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .love-message.hidden {
+            opacity: 0 !important;
+            pointer-events: none;
+            transform: translateX(-50%) scale(0.8) !important;
+        }
+
+        /* Mensaje romántico */
+        .message {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #ffecb3;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            opacity: 0;
+            animation: fadeIn 3s ease-in 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 0.8; }
+        }
+
+        /* Ramo de flores central */
+        .bouquet-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .bouquet-container:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .bouquet {
+            position: relative;
+            width: 120px;
+            height: 150px;
+            opacity: 0.9;
+            transition: all 0.5s ease;
+        }
+
+        .bouquet.activated {
+            animation: bouquetBloom 2s ease-in-out;
+        }
+
+        @keyframes bouquetBloom {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.3) rotate(5deg); }
+            50% { transform: scale(1.4) rotate(-5deg); }
+            75% { transform: scale(1.2) rotate(3deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* Tallo del ramo */
+        .stem {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 60px;
+            background: linear-gradient(to bottom, #4caf50, #2e7d32);
+            border-radius: 4px;
+        }
+
+        /* Flores del ramo */
+        .bouquet-flower {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            transition: transform 0.3s ease;
+        }
+
+        .bouquet-flower::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle, #ffeb3b, #ffc107);
+            border-radius: 50%;
+            top: 8px;
+            left: 8px;
+            box-shadow: 
+                0 0 15px #ffeb3b,
+                0 0 25px rgba(255, 235, 59, 0.7);
+        }
+
+        .bouquet-flower::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff9800;
+            border-radius: 50%;
+            top: 11px;
+            left: 11px;
+            box-shadow: 0 0 8px #ff9800;
+        }
+
+        .bouquet-petal {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.8);
+        }
+
+        .bouquet-petal:nth-child(1) { transform: rotate(0deg) translateY(-12px); }
+        .bouquet-petal:nth-child(2) { transform: rotate(45deg) translateY(-12px); }
+        .bouquet-petal:nth-child(3) { transform: rotate(90deg) translateY(-12px); }
+        .bouquet-petal:nth-child(4) { transform: rotate(135deg) translateY(-12px); }
+        .bouquet-petal:nth-child(5) { transform: rotate(180deg) translateY(-12px); }
+        .bouquet-petal:nth-child(6) { transform: rotate(225deg) translateY(-12px); }
+        .bouquet-petal:nth-child(7) { transform: rotate(270deg) translateY(-12px); }
+        .bouquet-petal:nth-child(8) { transform: rotate(315deg) translateY(-12px); }
+
+        /* Posiciones de las flores en el ramo */
+        .bouquet-flower:nth-child(1) { 
+            top: 20px; 
+            left: 20px; 
+            z-index: 3;
+        }
+        .bouquet-flower:nth-child(2) { 
+            top: 10px; 
+            left: 40px; 
+            z-index: 2;
+        }
+        .bouquet-flower:nth-child(3) { 
+            top: 30px; 
+            left: 60px; 
+            z-index: 1;
+        }
+        .bouquet-flower:nth-child(4) { 
+            top: 45px; 
+            left: 30px; 
+            z-index: 2;
+        }
+        .bouquet-flower:nth-child(5) { 
+            top: 50px; 
+            left: 50px; 
+            z-index: 1;
+        }
+
+        /* Animación cuando se activa el ramo */
+        .bouquet.activated .bouquet-flower {
+            animation: flowerSpin 1s ease-in-out;
+        }
+
+        .bouquet.activated .bouquet-flower:nth-child(1) { animation-delay: 0s; }
+        .bouquet.activated .bouquet-flower:nth-child(2) { animation-delay: 0.1s; }
+        .bouquet.activated .bouquet-flower:nth-child(3) { animation-delay: 0.2s; }
+        .bouquet.activated .bouquet-flower:nth-child(4) { animation-delay: 0.3s; }
+        .bouquet.activated .bouquet-flower:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes flowerSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(360deg) scale(1.2); }
+        }
+
+        /* Partículas que aparecen al hacer click */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 3s ease-out forwards;
+            box-shadow: 0 0 10px #ffeb3b;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--random-x, 100px), var(--random-y, -100px)) scale(0);
+            }
+        }
+
+        /* Mensaje de interacción */
+        .click-message {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffecb3;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Corazones flotantes */
+        .heart {
+            position: absolute;
+            color: #ff6b9d;
+            font-size: 20px;
+            animation: heartFloat 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes heartFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+        }
+
+        .heart:nth-child(1) { top: 15%; right: 20%; animation-delay: 0.5s; }
+        .heart:nth-child(2) { bottom: 30%; left: 15%; animation-delay: 1.5s; }
+        .heart:nth-child(3) { top: 70%; right: 5%; animation-delay: 2.5s; }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .main-title {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: clamp(1.8rem, 6vw, 3rem);
+            }
+            
+            .love-message {
+                width: 95%;
+                padding: 1.5rem;
+                top: 15%;
+                max-height: 60vh;
+                font-size: 0.85rem;
+            }
+            
+            .toggle-message {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .flower {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .flower::before {
+                width: 15px;
+                height: 15px;
+                left: 7.5px;
+            }
+            
+            .flower::after {
+                width: 10px;
+                height: 10px;
+                top: 2.5px;
+                left: 10px;
+            }
+            
+            .petal {
+                width: 8px;
+                height: 18px;
+            }
+            
+            .bouquet {
+                width: 100px;
+                height: 120px;
+            }
+            
+            .bouquet-flower {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .bouquet-flower::before {
+                width: 14px;
+                height: 14px;
+                top: 7px;
+                left: 7px;
+            }
+            
+            .bouquet-flower::after {
+                width: 9px;
+                height: 9px;
+                top: 9px;
+                left: 9px;
+            }
+            
+            .bouquet-petal {
+                width: 8px;
+                height: 16px;
+            }
+            
+            .click-message {
+                top: 75%;
+            }
+            
+            .message {
+                bottom: 1rem;
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Estrellas de fondo -->
+    <div class="stars"></div>
+
+    <!-- Botón para mostrar/ocultar mensaje -->
+    <button class="toggle-message" id="toggleMessage">💌 Leer Carta</button>
+
+    <!-- Mensaje de amor expandido -->
+    <div class="love-message hidden" id="loveMessage">
+        <p>En un rincón especial de mi corazón, tejo cada palabra con la luz de este 21 de septiembre, el día en que el amor se viste de celebración. Y en esta fecha, mi pensamiento más bonito y profundo es para ti, mi <strong>Pequeñita</strong>.</p>
+        
+        <p>La <strong>belleza</strong> que habita en ti no es solo la que ven mis ojos, es el brillo de tu alma, la sonrisa que ilumina mis días y la calidez de tu corazón que convierte lo ordinario en algo extraordinario. Eres, mi <strong>Belén</strong>, la prueba de que lo más <strong>hermoso</strong> del mundo no está en paisajes lejanos o tesoros escondidos, sino en la <strong>bonita</strong> realidad que es tenerte a mi lado.</p>
+        
+        <p>Eres el <strong>amor</strong> que le da color a mi vida, la melodía suave que me calma y la fuerza que me inspira. Cada momento contigo es un regalo, una confirmación de que el <strong>amor</strong> es más que una palabra: es el hogar que encontré en ti.</p>
+        
+        <p>Feliz día del amor, mi <strong>Beyecita</strong>. Que este mensaje te recuerde siempre lo mucho que te valoro y el universo de sentimientos <strong>bonitos</strong> que has creado en mí.</p>
+        
+        <p class="signature">Te amo con todo lo que soy. 💛</p>
+    </div>
+
+    <!-- Título principal -->
+    <div class="main-title">
+        <h1 class="title">BELENCITA TE AMO DEMASIADO</h1>
+        <p class="subtitle">21 de Septiembre - Día del Amor ✨</p>
+    </div>
+
+    <!-- Flores flotantes -->
+    <div class="flowers-container">
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+    </div>
+
+    <!-- Ramo de flores central -->
+    <div class="bouquet-container" id="bouquet">
+        <div class="bouquet" id="mainBouquet">
+            <div class="bouquet-flower">
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+            </div>
+            <div class="bouquet-flower">
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+            </div>
+            <div class="bouquet-flower">
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+            </div>
+            <div class="bouquet-flower">
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+            </div>
+            <div class="bouquet-flower">
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+                <div class="bouquet-petal"></div>
+            </div>
+            <div class="stem"></div>
+        </div>
+        <div class="click-message">Haz click en el ramo 🌻</div>
+    </div>
+
+    <!-- Corazones flotantes -->
+    <div class="heart">💛</div>
+    <div class="heart">🌻</div>
+    <div class="heart">💛</div>
+
+    <!-- Mensaje romántico -->
+    <div class="message">
+        Como flores amarillas que danzan en la noche<br>
+        Tu nombre brilla con luz dorada ✨
+    </div>
+
+    <script>
+        // Funcionalidad del botón de mensaje
+        function initToggleMessage() {
+            const toggleBtn = document.getElementById('toggleMessage');
+            const loveMessage = document.getElementById('loveMessage');
+            let isVisible = false;
+            
+            toggleBtn.addEventListener('click', function() {
+                if (isVisible) {
+                    loveMessage.classList.add('hidden');
+                    toggleBtn.textContent = '💌 Leer Carta';
+                    isVisible = false;
+                } else {
+                    loveMessage.classList.remove('hidden');
+                    toggleBtn.textContent = '✕ Cerrar';
+                    isVisible = true;
+                }
+            });
+        }
+
+        // Funcionalidad del ramo interactivo
+        function initBouquet() {
+            const bouquet = document.getElementById('bouquet');
+            const mainBouquet = document.getElementById('mainBouquet');
+            
+            bouquet.addEventListener('click', function(e) {
+                // Activar animación del ramo
+                mainBouquet.classList.add('activated');
+                
+                // Crear partículas en el punto de click
+                createParticles(e.clientX, e.clientY);
+                
+                // Remover la clase después de la animación
+                setTimeout(() => {
+                    mainBouquet.classList.remove('activated');
+                }, 2000);
+            });
+        }
+
+        // Crear partículas flotantes al hacer click
+        function createParticles(x, y) {
+            const particleCount = 12;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Posición inicial en el punto de click
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                
+                // Dirección aleatoria
+                const randomX = (Math.random() - 0.5) * 200;
+                const randomY = Math.random() * -150 - 50;
+                
+                particle.style.setProperty('--random-x', randomX + 'px');
+                particle.style.setProperty('--random-y', randomY + 'px');
+                
+                document.body.appendChild(particle);
+                
+                // Eliminar partícula después de la animación
+                setTimeout(() => {
+                    if (document.body.contains(particle)) {
+                        document.body.removeChild(particle);
+                    }
+                }, 3000);
+            }
+        }
+
+        // Crear estrellas dinámicamente
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const numberOfStars = window.innerWidth < 768 ? 50 : 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Agregar más interactividad en dispositivos táctiles
+        function addTouchInteractivity() {
+            if ('ontouchstart' in window) {
+                document.addEventListener('touchstart', function(e) {
+                    const flowers = document.querySelectorAll('.flower');
+                    flowers.forEach(flower => {
+                        flower.style.animationDuration = '3s';
+                    });
+                    
+                    setTimeout(() => {
+                        flowers.forEach(flower => {
+                            flower.style.animationDuration = '';
+                        });
+                    }, 3000);
+                });
+            }
+        }
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            addTouchInteractivity();
+            initBouquet();
+            initToggleMessage();
+        });
+    </script>
+</body>
+</html>
